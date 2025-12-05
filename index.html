@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0a0a14">
+    <title>Neuro-Match 2025</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="app-container">
+        <!-- Pantalla de bienvenida -->
+        <div id="welcome-screen" class="screen active">
+            <div class="logo">🧠</div>
+            <div class="title" id="welcome-title"></div>
+            <div class="subtitle" id="welcome-subtitle"></div>
+            <div class="progress-bar">
+                <div class="progress-inner" id="progress-inner"></div>
+            </div>
+            <div class="loading-text" id="loading-text">Cargando...</div>
+        </div>
+
+        <!-- Menú principal -->
+        <div id="main-menu" class="screen">
+            <div class="header">
+                <div class="menu-logo">🧠</div>
+                <div class="menu-title">NEURO-MATCH</div>
+                <div class="menu-subtitle">2025 EDITION</div>
+            </div>
+            
+            <div class="buttons-container">
+                <button class="menu-button" onclick="setGameMode('solitario')">
+                    <i class="icon">🤖</i>
+                    <span>SOLITARIO (VS IA)</span>
+                </button>
+                <button class="menu-button green" onclick="setGameMode('multijugador')">
+                    <i class="icon">👥</i>
+                    <span>MULTIJUGADOR</span>
+                </button>
+                <button class="menu-button orange" onclick="setGameMode('carrera')">
+                    <i class="icon">⚡</i>
+                    <span>CARRERA CONTRA RELOJ</span>
+                </button>
+            </div>
+            
+            <div class="footer">
+                <button class="round-button" onclick="showInfo()">
+                    <i class="fas fa-info"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Pantalla de selección de dificultad IA -->
+        <div id="ia-difficulty-screen" class="screen">
+            <div class="header">
+                <div class="menu-title">DIFICULTAD DE LA IA</div>
+                <div class="menu-subtitle">ELIGE EL NIVEL DE DESAFÍO</div>
+            </div>
+            
+            <div class="buttons-container">
+                <button class="menu-button green" onclick="setIADifficulty('fácil')">
+                    <i class="icon">🥉</i>
+                    <span>FÁCIL<br><small>Ideal para principiantes</small></span>
+                </button>
+                <button class="menu-button" onclick="setIADifficulty('normal')">
+                    <i class="icon">🥈</i>
+                    <span>NORMAL<br><small>Desafío equilibrado</small></span>
+                </button>
+                <button class="menu-button orange" onclick="setIADifficulty('difícil')">
+                    <i class="icon">🥇</i>
+                    <span>DIFÍCIL<br><small>Para expertos</small></span>
+                </button>
+                <button class="menu-button" style="background: linear-gradient(135deg, var(--accent-pink), var(--accent-pink-light))" 
+                        onclick="setIADifficulty('imposible')">
+                    <i class="icon">👑</i>
+                    <span>IMPOSIBLE<br><small>¡Casi invencible!</small></span>
+                </button>
+            </div>
+            
+            <div class="footer">
+                <button class="control-button" onclick="showScreen('main-menu')">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>VOLVER</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Pantalla de selección de jugadores -->
+        <div id="players-screen" class="screen">
+            <div class="header">
+                <div class="menu-title">SELECCIÓN DE JUGADORES</div>
+                <div class="menu-subtitle">ELIGE EL NÚMERO DE JUGADORES</div>
+            </div>
+            
+            <div class="buttons-container">
+                <button class="menu-button" onclick="setPlayers(2)">
+                    <i class="icon">👥</i>
+                    <span>2 JUGADORES<br><small>Duelo clásico</small></span>
+                </button>
+                <button class="menu-button green" onclick="setPlayers(3)">
+                    <i class="icon">👥👥</i>
+                    <span>3 JUGADORES<br><small>Competencia triple</small></span>
+                </button>
+                <button class="menu-button orange" onclick="setPlayers(4)">
+                    <i class="icon">👥👥👥</i>
+                    <span>4 JUGADORES<br><small>Batalla máxima</small></span>
+                </button>
+            </div>
+            
+            <div class="footer">
+                <button class="control-button" onclick="showScreen('main-menu')">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>VOLVER</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Pantalla de selección de tiempo -->
+        <div id="time-screen" class="screen">
+            <div class="header">
+                <div class="menu-title">TIEMPO DE CARRERA</div>
+                <div class="menu-subtitle">ELIGE LA DURACIÓN</div>
+            </div>
+            
+            <div class="buttons-container">
+                <button class="menu-button orange" onclick="setTime(30)">
+                    <i class="icon">⏰</i>
+                    <span>00:30<br><small>Velocidad extrema</small></span>
+                </button>
+                <button class="menu-button" onclick="setTime(60)">
+                    <i class="icon">⏰</i>
+                    <span>01:00<br><small>Desafío rápido</small></span>
+                </button>
+                <button class="menu-button green" onclick="setTime(90)">
+                    <i class="icon">⏰</i>
+                    <span>01:30<br><small>Tiempo estándar</small></span>
+                </button>
+                <button class="menu-button" style="background: linear-gradient(135deg, var(--accent-pink), var(--accent-pink-light))" 
+                        onclick="setTime(120)">
+                    <i class="icon">⏰</i>
+                    <span>02:00<br><small>Maratón</small></span>
+                </button>
+            </div>
+            
+            <div class="footer">
+                <button class="control-button" onclick="showScreen('main-menu')">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>VOLVER</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Pantalla de juego -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <button class="back-button" onclick="pauseGame()">
+                    <i class="fas fa-pause"></i>
+                </button>
+                <div class="player-info" id="current-player">Turno: Jugador 1</div>
+                <div class="time-info" id="time-display"></div>
+            </div>
+            
+            <div class="scores-container" id="scores-container">
+                <!-- Las puntuaciones se generan dinámicamente -->
+            </div>
+            
+            <div class="game-board" id="game-board">
+                <!-- Las cartas se generan dinámicamente -->
+            </div>
+            
+            <div class="game-stats">
+                <div class="stat">
+                    <span class="stat-label">Movimientos:</span>
+                    <span class="stat-value" id="movements-count">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Pares:</span>
+                    <span class="stat-value" id="pairs-count">0/0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pantalla de pausa -->
+        <div id="pause-screen" class="screen">
+            <div class="pause-title">JUEGO EN PAUSA</div>
+            <div class="pause-buttons">
+                <button class="menu-button" onclick="resumeGame()">
+                    <i class="fas fa-play"></i>
+                    <span>Continuar</span>
+                </button>
+                <button class="menu-button green" onclick="restartGame()">
+                    <i class="fas fa-redo"></i>
+                    <span>Reiniciar</span>
+                </button>
+                <button class="menu-button orange" onclick="showScreen('main-menu')">
+                    <i class="fas fa-home"></i>
+                    <span>Menú Principal</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Pantalla de resultados -->
+        <div id="results-screen" class="screen">
+            <div class="result-title" id="results-title">🎉 VICTORIA 🎉</div>
+            <div class="result-icon" id="result-icon">🏆</div>
+            <div class="result-stats" id="results-stats">
+                <!-- Las estadísticas se generan dinámicamente -->
+            </div>
+            <div class="result-buttons">
+                <button class="result-button restart" onclick="restartGame()">
+                    <i class="fas fa-redo"></i>
+                    <span>Jugar otra vez</span>
+                </button>
+                <button class="result-button menu" onclick="showScreen('main-menu')">
+                    <i class="fas fa-home"></i>
+                    <span>Menú principal</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Toast para mensajes -->
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
